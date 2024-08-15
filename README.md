@@ -39,6 +39,13 @@ The standard port is `3210`.
 
 The JSON output is directed to a file `./beacon.txt` or any file specified with `-o OUTPUT-FILE`.
 
+## Example
+
+An example of a raw beacon is included in this repository and can be tested using
+```
+cargo run -i beacon.raw
+```
+
 ## Transmission
 
 Frequency: __400.65MHz__
