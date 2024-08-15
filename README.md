@@ -14,23 +14,34 @@ The beacon decoder is written in Rust. To run the parser you'll need to:
 
 #### Run the parser
 
-The parser can be used standalone by inputting a file with demodulated and decoded raw beacon data.
+The parser can be used standalone by inputting a file with demodulated and decoded raw beacon data or together with the flowgraph, which requires the flowgraph to be started first.
 
-```
-cargo run -i /path/to/raw-file
-```
-
-Or together with the flowgraph. This requires the flowgraph to be started first.
-
+- Run from the directory
 ```
 cargo run
 ```
+- Build and run from anywhere
+```
+cargo build --release
+cp target/release/cuava-beacon-decoder PATH/TO/DESTINATION
+cd PATH/TO/DESTINATION
+./cuava-beacon-decoder
+```
 
-The standard port used is `3210` but can be altered with the option `-p PORT`.
+The following options are available:
+
+```
+./cuava-beacon-decoder -i INPUT-FILE -o OUTPUT-FILE -p PORT
+```
+The `-i INPUT-FILE` option enables the standalone use for parsing pre-recorded beacons.
+
+The standard port is `3210`.
 
 The JSON output is directed to a file `./beacon.txt` or any file specified with `-o OUTPUT-FILE`.
 
 ## Transmission
+
+Frequency: __400.65MHz__
 
 Baudrate: __1k2__
 
