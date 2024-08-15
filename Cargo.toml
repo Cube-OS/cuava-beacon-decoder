@@ -1,12 +1,12 @@
 [package]
 name = "cuava-beacon-decoder"
-version = "0.1.0"
+version = "1.0.1"
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-bincode = { git = "ssh://git@github.com/Cube-OS/bincode" }
+bincode = { path = "./bincode" }
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
 chrono = { version = "0.4", features = ["serde"] }
