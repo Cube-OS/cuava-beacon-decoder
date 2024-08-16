@@ -43,7 +43,7 @@ The JSON output is directed to a file `./beacon.txt` or any file specified with 
 
 An example of a raw beacon is included in this repository and can be tested using
 ```
-cargo run --release -- -i beacon.raw
+cargo run --release -- -i demodulated-beacon.raw
 ```
 
 ## Transmission
