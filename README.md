@@ -2,7 +2,7 @@
 
 This repository contains the application needed to parse the beacons from the University of Sydney's satellites CUAVA-2 and Waratah Seed-1. 
 
-Additionally we include the gnu-radio flowgraph to receive the raw beacons.
+Additionally we include the gnu-radio flowgraph to receive the raw beacons and an example of a raw beacon recorded directly after the decimating low-pass filter.
 
 ## Application
 
