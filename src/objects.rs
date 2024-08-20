@@ -31,6 +31,7 @@ pub enum BeaconEnum {
     Eps(PIUHk),
     Adcs(Telemetry, Telemetry),
     Trxvu(TrxvuTelemetry, TrxvuTelemetry),
+    Rc([i16; 3]),
 }
 impl BeaconEnum {
     pub fn to_string(&self) -> String {
@@ -43,6 +44,9 @@ impl BeaconEnum {
             },
             BeaconEnum::Trxvu(tx, rx) => {
                 format!("TX: {}\nRX: {}", serde_json::to_string_pretty(tx).unwrap(), serde_json::to_string_pretty(rx).unwrap())
+            },
+            BeaconEnum::Rc(rc) => {
+                format!("RC: {:?}", rc)
             },
         }
     }
@@ -84,7 +88,7 @@ impl Beacon {
 }
 fn find_next_string_in_beacon(data: Vec<u8>) -> Option<usize> {
     let target_cuava = "CUAV".as_bytes();
-    let target_ws = "WS-1".as_bytes();
+    let target_ws = "WS-1-2".as_bytes();
 
     for i in 0..(data.len()-4) {
         if &data[i..i+4] == target_cuava {
@@ -131,14 +135,14 @@ fn find_strings_in_beacon(data: Vec<u8>) -> Result<Vec<(Satellite, Vec<u8>)>, st
                 return Err(std::io::Error::new(std::io::ErrorKind::InvalidData, "CUAVA not found in beacon"));
             }
         } else if &data[i..i+4] == target_ws {
-            match find_next_string_in_beacon(data[i+4..].to_vec()) {
+            match find_next_string_in_beacon(data[i+6..].to_vec()) {
                 Some(j) => {
-                    results.push((Satellite::Ws1, data[i+4..i+4+j-17].to_vec()));
-                    i = i+4+j; // Move past the matched string
+                    results.push((Satellite::Ws1, data[i+6..i+6+j-17].to_vec()));
+                    i = i+6+j; // Move past the matched string
                 }
                 None => {
-                    results.push((Satellite::Ws1, data[i+4..].to_vec()));
-                    i += 4; // Move past the matched string
+                    results.push((Satellite::Ws1, data[i+6..].to_vec()));
+                    i += 6; // Move past the matched string
                 }
             }
         } else {
@@ -163,7 +167,7 @@ impl FromStr for Satellite {
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         match s {
-            "WS-1" => Ok(Satellite::Ws1),
+            "WS-1-2" => Ok(Satellite::Ws1),
             "CUAVA-2" => Ok(Satellite::Cuava2),
             "CUAVA-EM" => Ok(Satellite::CuavaEm),
             _ => Err(std::io::Error::new(
