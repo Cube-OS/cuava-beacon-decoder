@@ -161,10 +161,20 @@ pub struct QCovariance {}
 pub struct AngularRateCovariance {}
 
 #[derive(Copy,Clone,Debug,Default,Serialize,Deserialize,PartialEq)]
-pub struct RawCam2Sensor {}
+pub struct RawCam2Sensor {
+    pub centroid_x: i16,
+    pub centroid_y: i16,
+    pub capture_status: u8,
+    pub detection_result: u8,
+}
 
 #[derive(Copy,Clone,Debug,Default,Serialize,Deserialize,PartialEq)]
-pub struct RawCam1Sensor {}
+pub struct RawCam1Sensor {
+    pub centroid_x: i16,
+    pub centroid_y: i16,
+    pub capture_status: u8,
+    pub detection_result: u8,
+}
 
 #[derive(Copy,Clone,Debug,Default,Serialize,Deserialize,PartialEq)]
 pub struct RawCss16 {}
@@ -359,6 +369,14 @@ pub struct AdcsMeasurements {
     pub star3ox: i16,
     pub star3oy: i16,
     pub star3oz: i16,
+}
+
+#[derive(Copy,Clone,Debug,Default,Serialize,Deserialize,PartialEq)]
+pub struct DummyStruct {
+    pub dummy_0: u8,
+    pub dummy_1: u8,
+    pub dummy_2: u8,
+    pub dummy_3: u8,
 }
 
 #[derive(Copy,Clone,Debug,Default,Serialize,Deserialize,PartialEq)]

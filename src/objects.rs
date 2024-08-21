@@ -88,7 +88,7 @@ impl Beacon {
 }
 fn find_next_string_in_beacon(data: Vec<u8>) -> Option<usize> {
     let target_cuava = "CUAV".as_bytes();
-    let target_ws = "WS-1-2".as_bytes();
+    let target_ws = "WS-1".as_bytes();
 
     for i in 0..(data.len()-4) {
         if &data[i..i+4] == target_cuava {
@@ -167,7 +167,7 @@ impl FromStr for Satellite {
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         match s {
-            "WS-1-2" => Ok(Satellite::Ws1),
+            "WS-1" => Ok(Satellite::Ws1),
             "CUAVA-2" => Ok(Satellite::Cuava2),
             "CUAVA-EM" => Ok(Satellite::CuavaEm),
             _ => Err(std::io::Error::new(
